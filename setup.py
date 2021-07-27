@@ -62,6 +62,8 @@ class CMakeBuild(build_ext.build_ext):
         ]
 
         build_cmd = ["cmake", "--build", ".", "--parallel"]
+        if os.environ.get("CMAKE_MAX_PARALLEL", None):
+            build_cmd.extend(["-j", str(os.environ["CMAKE_MAX_PARALLEL"])])
         install_cmd = build_cmd + ["--target", "install"]
 
         try:
